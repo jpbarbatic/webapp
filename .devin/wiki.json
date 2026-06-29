@@ -1,0 +1,232 @@
+{
+  "repo_notes": [
+    {
+      "content": ""
+    }
+  ],
+  "pages": [
+    {
+      "title": "Descripción del proyecto",
+      "purpose": "High-level introduction to the webapp: what it is, its purpose, technology stack, directory layout, and how the major subsystems relate. Links to all child sections for deeper detail.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Getting Started: Installation & Configuration",
+      "purpose": "Step-by-step guide for setting up the project locally: cloning, configuring config.php, loading the database schema, FTP deployment via sync.sh, and Composer dependencies.",
+      "parent": "Project Overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Directory Structure & File Conventions",
+      "purpose": "Explains the three-layer directory layout (includes/, html/, public/), the naming conventions for .html.php / .css.php / .script.php view fragments, and how the public/ web root is organised by module.",
+      "parent": "Project Overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Core Architecture",
+      "purpose": "Overview of the server-side MVC-like architecture: the bootstrap guard pattern, template engine, database abstraction layer, and request lifecycle. Links to child pages for each subsystem.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Authentication & Session Management",
+      "purpose": "Detailed coverage of the login flow, session lifecycle, logout, and the backend.php guard that protects every internal route. Includes the RBAC permission check and superuser bypass.",
+      "parent": "Core Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Template Engine (plantilla.html.php)",
+      "purpose": "How the master template works: dynamic inclusion of per-view .html.php / .css.php / .script.php files via the $vista variable, Bootstrap asset loading, flash-message rendering, navigation active-state logic, and the comun.script.php shared script.",
+      "parent": "Core Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Database Abstraction Layer (db_pdo.php)",
+      "purpose": "Full reference for the PDO wrapper: db_open, db_query, db_select (paginated), db_get_by_id, db_insert, db_update, db_delete_by_id, transaction helpers (db_begin/commit/rollback), the DB singleton class, and the is_valid_identifier security guard.",
+      "parent": "Core Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Utility & Helper Functions (utilidades.php, permisos.php, usuarios.php)",
+      "purpose": "Documents the shared helper library: paginacion() for offset calculation, html_opciones() and html_input_valor() for form rendering, es_visible() for nav permission checks, and the permisos/usuarios domain helpers (obtener_permisos_rol, actualizar_permisos_rol, obtener_roles).",
+      "parent": "Core Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "URL Routing & Error Handling",
+      "purpose": "Explains the Apache mod_rewrite rules in public/.htaccess (clean URLs like /productos/42 → editar.php?id=42), the centralised error page (public/error.php), and the 403/404 HTML fragments.",
+      "parent": "Core Architecture",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Dashboard Module",
+      "purpose": "Overview of the dashboard landing page: RSS news aggregation, weather widget integration, and the two dashboard view variants. Links to child pages for the news feed and weather widget.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "News Feed (RSS Aggregation)",
+      "purpose": "How public/dashboard/index.php fetches the El País MRSS feed with simplexml_load_file, passes $noticias to the view, and how dashboard.html.php iterates namespaced XML items to render headlines and images.",
+      "parent": "Dashboard Module",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Weather Widget (WeatherWidget.js)",
+      "purpose": "Documents the client-side WeatherWidget class: constructor options (provincia/municipio), the el-tiempo.net API call, icon mapping, hourly and daily forecast rendering, and how dashboard.script.php initialises the widget.",
+      "parent": "Dashboard Module",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "CRUD Modules",
+      "purpose": "Overview of the four entity management modules (Productos, Categorías, Usuarios, Roles/Permisos) and the shared CRUD patterns they all follow. Links to per-module child pages.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Productos (Products) Module",
+      "purpose": "Full walkthrough of the products module: index/listing with filtering and pagination, create/edit forms, guardar.php persistence, borrar.php deletion, photo gallery upload (subir_fotos.php with transactions), and PDF export via mPDF.",
+      "parent": "CRUD Modules",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Categorías (Categories) Module",
+      "purpose": "Covers the categories module: listing view, create/edit forms, guardar.php, borrar.php, and the delete-modal JavaScript pattern shared between listado and editar views.",
+      "parent": "CRUD Modules",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Usuarios (Users) Module",
+      "purpose": "Documents the users module: listing, create (crear.php), edit (editar.php), guardar.php, borrar.php, password change (guardar_password.php with password_hash), and profile photo upload with GD image resampling (guardar_foto.php).",
+      "parent": "CRUD Modules",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Roles & Permisos (Roles & Permissions) Module",
+      "purpose": "Explains the roles and permissions subsystem: listing roles, editing a role with its permission checkboxes, guardar.php (actualizar_permisos_rol), the roles_permisos join table, the depende_de permission dependency field, and the debug permisos/index.php endpoint.",
+      "parent": "CRUD Modules",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Shared UI Patterns: Delete Modal, Pagination & Filtering",
+      "purpose": "Documents the reusable UI components used across all CRUD modules: the confirmacion.borrado.html.php Bootstrap modal, the JavaScript data-binding pattern (deleteModal / modalRecordId / btnSpinner), the paginacion.html.php component, and the products filtro.html.php collapsible filter bar.",
+      "parent": "CRUD Modules",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Database Schema",
+      "purpose": "Reference for the MariaDB schema defined in esquema.sql: all five tables (categorias, permisos, productos, roles, roles_permisos, usuarios), their columns, foreign keys, constraints, and sample seed data.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Infrastructure & Deployment",
+      "purpose": "Covers the operational aspects of the project: FTP deployment via sync.sh/.env, Apache configuration (.htaccess), the bd.php SQL loader utility, and Composer/npm dependency management.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "FTP Deployment (sync.sh)",
+      "purpose": "How sync.sh uses lftp to mirror the project to a remote FTP server, which files are excluded (.git, config.php, .env, node_modules, vendor), and how to configure the .env file with FTP credentials.",
+      "parent": "Infrastructure & Deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Apache Configuration & Static Assets",
+      "purpose": "Documents the public/.htaccess rewrite rules for clean URLs, directory listing suppression, ErrorDocument directives, and the public/assets/ directory (Bootstrap bundle, dashboard.css, weather-widget.js).",
+      "parent": "Infrastructure & Deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Glossary",
+      "purpose": "Definitions of all codebase-specific terms, Spanish-language identifiers, abbreviations, and architectural concepts that an onboarding engineer needs to know, with code pointers.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    }
+  ]
+}
