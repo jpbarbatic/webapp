@@ -1,0 +1,30 @@
+/* Show it is fixed to the top */
+body {
+  /*min-height: 75rem;*/
+  padding-top: 4.5rem;
+}
+
+#noticias img {
+  max-height: 200px;
+  width: auto;
+  display: block;
+  margin: auto;
+  filter: drop-shadow(0 0 0.25rem black);
+  text-align: center;
+  padding: 20px;
+}
+
+#noticias h3{
+  clear: both;
+}
+
+.form-control {
+    background-color: white;
+}
+.form-control:focus {
+  background-color: lightyellow;
+}
+
+.form-control:read-only{
+  background-color: lightgray;
+}
