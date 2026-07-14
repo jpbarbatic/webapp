@@ -13,6 +13,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "php -S 0.0.0.0:9000 -t public",
     "sync-ftp": "./sync.sh"
+  },
+  "dependencies": {
+    "baguettebox.js": "^1.13.0",
+    "bootstrap-icons": "^1.13.1"
   }
 }
-

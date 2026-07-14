@@ -1,5 +1,5 @@
 <h2><?php echo $titulo; ?></h2>
-<a class="btn btn-secondary btn-sm" href="productos/nuevo.php">Nuevo</a>
+<a class="btn btn-secondary btn-sm" href="roles/nuevo.php">Nuevo</a>
 <hr>
 <?php if (isset($datos) and !empty($datos)): ?>
     <?php include __DIR__ . '/' . '../paginacion.html.php' ?>
@@ -10,6 +10,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +19,12 @@
                         <td><?= $rol['id'] ?></td>
                         <td><?= $rol['nombre'] ?></td>
                         <td><?= $rol['descripcion'] ?></td>
-
+                        <td><a class="btn btn-primary btn-sm" href="roles/<?= $rol['id'] ?>">Editar</a> <button type="button" class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
+                                data-id="<?= (int)$rol['id'] ?>">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

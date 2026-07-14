@@ -1,4 +1,4 @@
-<form action="productos/guardar.php" method="post">
+<form action="productos/<?= empty($producto['id']) ? 'crear' :'guardar'?>.php" method="post">
     <div class="row mb-3">
         <div class="col-md-1">
             <label>ID</label>
@@ -12,7 +12,7 @@
     <div class="row mb-3">
         <div class="col-md">
             <label>Descripción</label>
-            <textarea class="form-control" name="descripcion"><?= isset($item) ? $producto['descripcion'] : '' ?></textarea>
+            <textarea class="form-control" name="descripcion"><?= isset($producto) ? $producto['descripcion'] : '' ?></textarea>
         </div>
     </div>
     <div class="row mb-3">
@@ -20,7 +20,11 @@
             <label>Categoría</label>
             <select class="form-select" name="id_categoria">
                 <option value="">-- Elija una categoría --</option>
-                <?php echo html_opciones($categorias, $producto['id_categoria'], 'id', 'nombre'); ?>
+                <?php $t=0; foreach($categorias as $categoria): ?>
+                <?php if($categoria['categoria_padre']!=null) $t++; else $t=0; ?>
+                <?php $selected=(isset($producto) and $categoria['id']===$producto['id_categoria']) ? 'selected' : ''?>
+                <option <?= $selected ?> value="<?= $categoria['id'] ?>"><?= str_repeat('-', $t).' '.$categoria['nombre'] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="col-md">

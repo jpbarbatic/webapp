@@ -1,20 +1,19 @@
 <?php
-require_once('../../includes/backend.php');
-require_once('../../includes/utilidades.php');
+$metodo = 'GET';
+$db = require_once('../../includes/backend.php');
+require_once('../../includes/productos.php');
+require_once('../../includes/categorias.php');
 
-if(!$_SERVER['REQUEST_METHOD']=='GET' or !isset($db)){
+$id = parametro_valido($_GET, 'id', 'int');
+if (!$id) {
     die();
 }
-
-if(!isset($_REQUEST['id'])){
-    die();
+$producto = productos_obtener($id);
+if (!$producto) {
+    redirigir('.');
 }
 
-$id=$_REQUEST['id'];
-
-$producto=db_get_by_id($db, 'productos', $id);
-$categorias=db_query($db, 'SELECT * FROM categorias');
-
-$titulo='Editar producto';
-$vista='productos/editar';
+$categorias = categorias_lista($db);
+$titulo = 'Editar producto';
+$vista = 'productos/editar';
 require('../../html/plantilla.html.php');

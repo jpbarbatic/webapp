@@ -20,3 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+<script src="assets/baguettebox.js/dist/baguetteBox.min.js" async></script>
+<script>
+window.addEventListener('load', function() {
+  baguetteBox.run('.gallery');
+});
+</script>

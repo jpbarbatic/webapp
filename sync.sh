@@ -1,6 +1,15 @@
 #!/bin/bash
+
+if ! command -v lftp > /dev/null 2>&1
+then
+   echo "El programa lftp no está instalado. Ejecute:"
+   echo "- Ubuntu/Debian: apt install lftp"
+   echo "- Red Hat/Fedora: yum install lftp"
+   return 1
+fi
+
 . .env
-EXCLUDE="-x .git/ -x config.php -x .env -x node_modules -x vendor -x .git"
+EXCLUDE="-x .git/ -x config.php -x .env -x node_modules -x vendor -x .git -x tests"
 cat << 'EOF'
  ____  _                            _                    _       
 / ___|(_)_ __   ___ _ __ ___  _ __ (_)______ _ _ __   __| | ___  

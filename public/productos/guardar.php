@@ -1,17 +1,26 @@
 <?php
-require_once('../../includes/backend.php');
+$permiso = 'productos.actualizar';
+$metodo = 'POST';
+$db = require_once('../../includes/backend.php');
+require_once('../../includes/utilidades.php');
+require_once('../../includes/productos.php');
 
-if (!$_SERVER['REQUEST_METHOD'] == 'POST' or !isset($db)) {
-    die();
+$formulario = productos_validar($_POST);
+
+if (empty($formulario['errores'])) {
+
+    $res = productos_guardar($db, $formulario['valores']);
+    if ($res) {
+        $_SESSION['mensaje']['ok'] = 'Registro guardado correctamente';
+    } else {
+        $_SESSION['mensaje']['ko'] = 'Se ha producido un error';
+    }
+} else {
+    $_SESSION['mensaje']['ko'] = 'Se ha producido un error';
 }
 
-if (empty($_REQUEST['id'])) {
-    $id = db_insert($db, 'productos', $_REQUEST);
-    $_SESSION['mensaje']['ok']='Registro guardado correctamente';
-}else{
-    $id=$_REQUEST['id'];
-    $res=db_update($db, 'productos', $_REQUEST);
-    $_SESSION['mensaje']['ok']='Registro guardado correctamente';
+if (isset($formulario['valores']['id'])) {
+    header('Location: ./' . $formulario['valores']['id']);
+} else {
+    header('Location: .');
 }
-
-header('Location: editar.php?id=' . $id);

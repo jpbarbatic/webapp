@@ -1,4 +1,5 @@
 <h2><?php echo $titulo; ?></h2>
+<?php if(isset($producto)):?>
 <button type="button" class="btn btn-danger btn-sm"
     data-bs-toggle="modal"
     data-bs-target="#deleteModal"
@@ -20,9 +21,11 @@
     </div>
 </form>
 <div class="row mt-3">
-    <div class="col">
+    <div class="col gallery">
         <?php for ($i = 1; $i <= $producto['num_fotos']; $i++): ?>
-            <img style="height: 100px;" class="img-thumbnail" src="imagenes/productos/<?= $producto['id'] ?>/<?= $i ?>.jpg">
+            <a href="imagenes/productos/<?= $producto['id'] ?>/<?= $i ?>.jpg"><img style="height: 100px;" class="img-thumbnail" src="imagenes/productos/<?= $producto['id'] ?>/<?= $i ?>.jpg">
+            </a>
         <?php endfor; ?>
     </div>
 </div>
+<?php endif; ?>

@@ -1,6 +1,7 @@
 <?php
 require('../config.php');
 require('../includes/db_pdo.php');
+require('../includes/utilidades.php');
 require('../includes/permisos.php');
 session_start();
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -24,6 +25,7 @@ if (!empty($res) and password_verify($_POST['password'], $res[0]['password'])) {
     session_regenerate_id(true); 
     $_SESSION['usuario'] = $res[0];
     $_SESSION['permisos'] = obtener_permisos_rol($db, $_SESSION['usuario']['id_rol']);
+    mensaje_log('Login: '.$res[0]['email']);
     header('Location: '.URL_BASE);
     exit;
 } else {

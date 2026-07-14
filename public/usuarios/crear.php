@@ -1,13 +1,16 @@
 <?php
-require_once('../../includes/backend.php');
+$permiso = 'usuarios.crear';
+$metodo = 'POST';
+$db = require_once('../../includes/backend.php');
+require_once('../../includes/utilidades.php');
+require_once('../../includes/usuarios.php');
 
-if (!$_SERVER['REQUEST_METHOD'] == 'POST' or !isset($db)) {
-    die();
+$formulario = validar_usuario($_REQUEST, false);
+
+if (empty($formulario['errores'])) {
+    $id = crear_usuario($db, $formulario['valores']);
+    $_SESSION['mensaje']['ok'] = 'Registro creado correctamente';
+    header('Location: ./' . $id);
+} else {
+    header('Location: ./nuevo');
 }
-
-if (empty($_REQUEST['id'])) {
-    $id = db_insert($db, 'usuarios', $_REQUEST);
-    $_SESSION['mensaje']['ok']='Registro creado correctamente';
-}
-
-header('Location: editar.php?id=' . $id);

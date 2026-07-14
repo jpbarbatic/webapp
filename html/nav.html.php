@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><?= NOMBRE_WEB?></a>
+            <a class="navbar-brand" href="<?= URL_BASE ?>"><?= NOMBRE_WEB?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,7 +24,10 @@
                         <a class="nav-link<?= str_starts_with($vista, 'categorias') ? ' active':'' ?>" href="categorias/">Categorías</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Salir</a>
+                        <a class="nav-link<?= str_starts_with($vista, 'pedidos') ? ' active':'' ?>" href="pedidos/">Pedidos <span id="num_pedidos" class="badge text-bg-danger"></span></a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout">Salir</a>
                     </li>                    
                 </ul>
             </div>

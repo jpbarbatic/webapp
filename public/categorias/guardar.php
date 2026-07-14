@@ -1,16 +1,13 @@
 <?php
-require_once('../../includes/backend.php');
+$metodo='POST';
+$db=require_once('../../includes/backend.php');
 
-if (!$_SERVER['REQUEST_METHOD'] == 'POST' or !isset($db)) {
-    die();
-}
-
-if (empty($_REQUEST['id'])) {
-    $id = db_insert($db, 'categorias', $_REQUEST);
+if (empty($_POST['id'])) {
+    $id = db_insert($db, 'categorias', $_POST);
     $_SESSION['mensaje']['ok']='Registro guardado correctamente';
 }else{
-    $id=$_REQUEST['id'];
-    $res=db_update($db, 'categorias', $_REQUEST);
+    $id=$_POST['id'];
+    $res=db_update($db, 'categorias', $_POST);
     $_SESSION['mensaje']['ok']='Registro guardado correctamente';
 }
 

@@ -1,4 +1,4 @@
-<form action="usuarios/<?=isset($usuario) ? 'guardar' : 'crear'?>.php" method="post">
+<form action="usuarios/<?=empty($usuario['id']) ? 'crear' : 'guardar'?>.php" method="post">
     <div class="row mb-3">
         <div class="col-md-1">
             <label>ID</label>

@@ -1,10 +1,8 @@
 <?php
+
+$metodo='GET';
 require_once('../../includes/backend.php');
 
-if(!$_SERVER['REQUEST_METHOD']=='GET' or !isset($db)){
-    die();
-}
-
-$titulo='Nuevo usuario';
-$vista='usuarios/nuevo';
+$titulo='Nueva categoría';
+$vista='categorias/nuevo';
 require('../../html/plantilla.html.php');

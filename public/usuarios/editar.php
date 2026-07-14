@@ -1,20 +1,19 @@
 <?php
 
-require_once('../../includes/backend.php');
+$permiso='usuarios.actualizar';
+$metodo='GET';
+$db=require_once('../../includes/backend.php');
 
-if(!$_SERVER['REQUEST_METHOD']=='GET' or !isset($db)){
+
+if(!parametro_valido($_GET, 'id', 'int')){
     die();
 }
 
-if(!isset($_REQUEST['id'])){
-    die();
+$usuario=db_get_by_id($db, 'usuarios', $_GET['id']);
+if(!$usuario){
+    header('Location: .');
+    exit;
 }
-
-$id=$_REQUEST['id'];
-
-$usuario=db_get_by_id($db, 'usuarios', $id);
-
 $titulo='Editar usuario';
 $vista='usuarios/editar';
 require('../../html/plantilla.html.php');
-unset($_SESSION['mensaje']);

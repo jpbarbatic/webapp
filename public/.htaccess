@@ -1,10 +1,12 @@
 Options -Indexes
 
 RewriteEngine On
+RewriteBase /iaw/repaso/webapp1/public/
 
 RewriteRule ^([a-z]+)/([0-9]+)$ $1/editar.php?id=$2 [QSA,L]
 RewriteRule ^([a-z]+)/nuevo$ $1/nuevo.php [QSA,L]
+RewriteRule ^([a-z]+)/pdf$ $1/pdf.php [QSA,L]
+RewriteRule ^logout logout.php [QSA,L]
 
-
-ErrorDocument 404 /iaw/repaso/web/public/error.php
-ErrorDocument 403 /iaw/repaso/web/public/error.php
+ErrorDocument 404 /iaw/repaso/webapp1/public/error.php
+ErrorDocument 403 /iaw/repaso/webapp1/public/error.php

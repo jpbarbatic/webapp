@@ -1,120 +1,103 @@
 <!doctype html>
 <html lang="es">
+<?php include 'head.html.php' ?>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="generator" content="">
-    <base href="<?= URL_BASE ?>">
+<body>
+    <?php include "nav.html.php" ?>
+    <main class="container">
+        <?php include "mensajes.html.php" ?>
+        <?php if (file_exists(__DIR__ . '/' . $vista . ".html.php")) {
+            include __DIR__ . '/' . $vista . ".html.php";
+        } ?>
+        <button id="btn-notificaciones">Activar Notificaciones</button>
+    </main>
 
-    <title><?= NOMBRE_WEB ?><?php echo isset($titulo) ? ' - ' . $titulo : '' ?></title>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <!--<img src="..." class="rounded me-2" alt="..."> -->
+                <strong class="me-auto">Notificación</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Nuevo pedido
+            </div>
+        </div>
+    </div>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/navbar-fixed/">
+    <script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <?php include __DIR__ . '/comun.script.php'; ?>
+    <?php if (file_exists(__DIR__ . '/' . $vista . ".script.php")) {
+        include __DIR__ . '/' . $vista . ".script.php";
+    } ?>
+    <script>
+        async function actualizarPedidos() {
+            try {
+                const respuesta = await fetch('api/num_pedidos_recientes.php');
+                const json = await respuesta.json();
+                console.log('Pedidos actuales:', json.datos);
+                if (json.datos >= 0) {
+                    document.getElementById('num_pedidos').innerText = json.datos;
+                    /*
+                    const toastElement = document.getElementById('liveToast');
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();*/
 
-    <link href="assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+                    /*var notification = new Notification("Nuevo pedido", {
+                        body: "Las notificaciones locales se han activado con éxito.",
+                        icon: "ruta/al/icono.png"
+                    });*/
+                }
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-    <meta name="theme-color" content="#712cf9">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
+                // Aquí actualizarías el DOM con los datos recibidos
+            } catch (error) {
+                console.error('Error:', error);
             }
         }
 
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        // Ejecutar cada minuto (60000 milisegundos)
+        actualizarPedidos();
+        setInterval(actualizarPedidos, 60000);
+
+        // 1. Verificar si el navegador soporta notificaciones
+        if (!('Notification' in window)) {
+            console.log("Este navegador no soporta notificaciones");
+        } else {
+            // Seleccionar el botón del HTML
+            const boton = document.getElementById('btn-notificaciones');
+
+            // Escuchar el clic del usuario (acción requerida por el navegador)
+            boton.addEventListener('click', function() {
+
+                // 2. Solicitar permiso al usuario dentro del evento click
+                Notification.requestPermission().then(function(permission) {
+                    if (permission === 'granted') {
+                        console.log("¡Permiso concedido por el usuario!");
+
+                        // Opcional: Ocultar el botón ya que tenemos el permiso
+                        boton.style.display = 'none';
+
+                        // 3. Crear y lanzar la notificación básica
+                        var notification = new Notification("¡Gracias!", {
+                            body: "Las notificaciones locales se han activado con éxito.",
+                            icon: "ruta/al/icono.png"
+                        });
+
+                        // 4. Añadir acción al hacer clic en la alerta
+                        notification.onclick = function() {
+                            window.open("https://tusitio.com");
+                        };
+
+                    } else if (permission === 'denied') {
+                        console.warn("El usuario ha rechazado las notificaciones.");
+                    }
+                });
+
+            });
         }
-
-        .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-        }
-
-        .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-        }
-
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        tr {
-            vertical-align: middle;
-        }
-    </style>
-
-
-    <!-- Custom styles for this template -->
-    <link href="assets/dashboard.css" rel="stylesheet">
-    <?php if (file_exists(__DIR__.'/'.$vista . ".css.php")) {
-        include __DIR__.'/'.$vista . ".css.php";
-    } ?>
-</head>
-
-<body>
-
-    <?php include "nav.html.php" ?>
-    <main class="container">
-        <?php if (isset($_SESSION['mensaje']['ok'])): ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?= $_SESSION['mensaje']['ok'] ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-        <?php if (isset($_SESSION['mensaje']['ko'])): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?= $_SESSION['mensaje']['ko'] ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-    <?php if (file_exists(__DIR__.'/'.$vista . ".html.php")) {
-        include __DIR__.'/'.$vista . ".html.php";
-    } ?>
-    </main>
-
-    <script src="assets/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <?php include __DIR__.'/comun.script.php'; ?>
-    <?php if (file_exists(__DIR__.'/'.$vista . ".script.php")) {
-        include __DIR__.'/'.$vista . ".script.php";
-    } ?>
+    </script>
 </body>
+
 </html>
-<?php unset($_SESSION['mensaje']);?>
+<?php unset($_SESSION['mensaje']); ?>

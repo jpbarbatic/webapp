@@ -1,0 +1,9 @@
+20260704 16:41 - 127.0.0.1 - Login usuario: admin@example.com
+20260704 16:41 - 127.0.0.1 - Login usuario: admin@example.com
+20260704 16:41 - 127.0.0.1 - Login usuario: admin@example.com
+20260704 16:58 - 127.0.0.1 - Logout: 
+20260704 16:59 - 127.0.0.1 - Login: admin@example.com
+20260704 16:59 - 127.0.0.1 - Logout: admin@example.com
+20260704 17:55 - 127.0.0.1 - Login: admin@example.com
+20260707 00:06 - 127.0.0.1 - Logout: admin@example.com
+20260707 00:07 - 127.0.0.1 - Login: admin@example.com
